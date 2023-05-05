@@ -18,7 +18,32 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title: 'Just Another Text Editor'
+      }),
+      new InjectManifest({
+        swSrc: 'src-sw.js',
+        swDest: 'service-worker.js',
+      }),
+      new WebpackPwaManifest({
+        name: 'Just Another Text Editor',
+        short_name: 'JATE',
+        description: 'A single-page text editor PWA that works offline and uses IndexedDB to get and store data.',
+        orientation: 'portrait',
+        start_url: './',
+        theme_color: '#7eb4e2',
+        background_color: '#7eb4e2',
+        publicPath: './',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+            destination: path.join('assets', 'icons'),
+          }
+        ]
+      }),
+
     ],
 
     module: {
